@@ -1,16 +1,20 @@
+# File: Mortgage.py
+# This file contains a Flask app that simulates a conversation between a user and a mortgage loan underwriter.
+
+import os
 from flask import Flask, request, jsonify, render_template
 from openai import OpenAI
 
 app = Flask(__name__)
-client = OpenAI(api_key="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")
+api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=api_key)
 
 # Keep track of conversation messages
 messages = []
 
 @app.route('/', methods=['GET'])
 def index():
-    # Return a simple chat page (HTML + JS, for example)
-    return render_template('chat.html')  # Create a chat.html file in a 'templates' folder
+    return render_template('chat.html')
 
 @app.route('/chat', methods=['POST'])
 def chat():

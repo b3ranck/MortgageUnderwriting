@@ -55,10 +55,6 @@
         align-items: center; /* Center chat horizontally */
       }
 
-      /*
-        #chatBox is just a wrapper for messages at a fixed max-width,
-        no border or background.
-      */
       #chatBox {
         width: 100%;
         max-width: 600px;
@@ -68,8 +64,6 @@
       /*
         4. Message Bubbles
         --------------------------------------------------------------
-        - Add some margin to visually separate them more.
-        - Align user messages to the right, assistant to the left.
       */
       .user-message,
       .assistant-message {
@@ -246,7 +240,7 @@
         const message = document.getElementById("userMessage").value.trim();
         if (!message) return;
 
-        // Immediately display user's bubble (no "You:" label)
+        // Immediately display user's bubble
         addMessageToChat(message, "user-message");
         document.getElementById("userMessage").value = "";
 
@@ -267,7 +261,7 @@
             const botReplyMarkdown = data.reply || "";
             const botReplyHTML = marked.parse(botReplyMarkdown);
 
-            // Display the assistant bubble (no "Bot:" label)
+            // Display the assistant bubble
             addMarkdownToChat(botReplyHTML, "assistant-message");
           })
           .catch((error) => {
@@ -327,13 +321,12 @@
       document
         .getElementById("userMessage")
         .addEventListener("keydown", function (e) {
-          // If Enter is pressed *without* Shift, send the message
+          // If Enter is pressed without Shift, send the message
           if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();  // Prevent newline from being added
             sendMessage();
           }
-          // If Enter is pressed *with* Shift, let it produce a newline
-          // (so do nothing special and don't call preventDefault)
+          // If Enter is pressed with Shift, let it produce a newline
         });
     </script>
   </body>
